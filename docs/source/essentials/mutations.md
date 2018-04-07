@@ -56,7 +56,7 @@ const AddTodo = () => {
 };
 ```
 
-First, create your GraphQL mutation, wrap it in `gql`, and pass it to the `mutation` prop on the `Mutation` component. The `Mutation` component also requires a function as a child (also called the render prop function). The first argument of the render prop function is the mutate function, which is how you tell Apollo Client that you'd like to trigger a mutation. The mutate function optionally takes `variables`, `optimisticResponse`, `refetchQueries`, and `update`; however, you can also pass in those values as props to the `Mutation` component. In the example, notice how we use the mutate function (called `addTodo`) to submit the form with our variables.
+First, create your GraphQL mutation, wrap it in `gql`, and pass it to the `mutation` prop on the `Mutation` component. The `Mutation` component also requires a function as a child (also called the render prop function). The first argument of the render prop function is the mutate function, which you call to tell Apollo Client that you'd like to trigger a mutation. The mutate function optionally takes `variables`, `optimisticResponse`, `refetchQueries`, and `update`; however, you can also pass in those values as props to the `Mutation` component. In the example, notice how we use the mutate function (called `addTodo`) to submit the form with our variables.
 
 The second argument to the render prop function is an object with your mutation result on the `data` property, as well as booleans for `loading` and if the mutate function was `called`, in addition to `error`. If you'd like to ignore the result of the mutation, pass `ignoreResults` as a prop to the mutation component.
 
@@ -64,7 +64,8 @@ If you're following along with the example on CodeSandbox, you probably noticed 
 
 <h2 id="update">Updating the cache</h2>
 
-Sometimes when you perform a mutation, your GraphQL server and your Apollo cache become out of sync. This happens when the update you're performing depends on data that is already in the cache; for example, deleting and adding items to a list. We need a way to tell Apollo Client to update the query for the list of items. This is where the `update` function comes in! `update` functions aren't required to update the cache for all mutations, but our `addTodo` mutation is an example of where it comes in handy.
+Sometimes when you perform a mutation, your GraphQL server and your Apollo cache become out of sync. This happens when the update you're performing depends on data that is already in the cache; for example, deleting and adding items to a list. We need a way to tell 
+to update the query for the list of items. This is where the `update` function comes in! `update` functions aren't required to update the cache for all mutations, but our `addTodo` mutation is an example of where it comes in handy.
 
 The update function is called with the Apollo cache as the first argument. The cache has several utility functions such as `cache.readQuery` and `cache.writeQuery` that allow you to read and write queries to the cache with GraphQL as if it were a server.
 There are other cache methods, such as `cache.readFragment`, `cache.writeFragment`, and `cache.writeData`, which you can learn about in our detailed [caching guide](../advanced/caching.html) if you're curious.
